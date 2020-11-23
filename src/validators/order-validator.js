@@ -28,23 +28,30 @@ export class OrderValidator extends Validator {
                 email: Joi.string().email().required(),
                 phone: Joi.string().required(),
             })).min(1).required(),
-            items: Joi.array().items(Joi.object({
-                reference: Joi.string().required(),
-                product: Joi.string().required(),
-                count: Joi.number().min(1).required(),
-                shipping_level: Joi.string()
-                    .valid('cp_postal', 'cp_ground', 'cp_saver', 'cp_fast')
-                    .when('quote', {is: Joi.exist(), otherwise: Joi.required()}),
-                files: Joi.array().items(Joi.object({
-                    type: Joi.string().required(),
-                    url: Joi.string().uri().required(),
-                    md5sum: Joi.string().required()
-                })).min(1).required(),
-                options: Joi.array().items(Joi.object({
-                    type: Joi.string().required(),
-                    count: Joi.required()
-                }))
-            })).min(1).required(),
+            items: Joi.array().items(
+                Joi.object({
+                    reference: Joi.string().required(),
+                    product: Joi.string().required(),
+                    count: Joi.number().min(1).required(),
+                    files: Joi.array().items(Joi.object({
+                        type: Joi.string().required(),
+                        url: Joi.string().uri().required(),
+                        md5sum: Joi.string().required()
+                    })).min(1).required(),
+                    options: Joi.array().items(Joi.object({
+                        type: Joi.string().required(),
+                        count: Joi.required()
+                    }))
+                })
+
+                // Don`t require quote, shipping_level, shipping_option for reordering
+                .or('quote', 'shipping_level', 'shipping_option', 'reorderOrderReference')
+                    .error(() => {
+                        return {
+                            message: 'The quote or shipping_level need to be set',
+                        };
+                    }),
+            ).min(1).required(),
         });
 
         return this.doValidation(schema);
