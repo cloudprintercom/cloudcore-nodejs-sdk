@@ -1,6 +1,6 @@
 {
   "name": "@cloudprinter/cloudcore",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The library that help developers easily integrate with CloudPrinter CloudCore API.",
   "homepage": "https://cloudprinter.com",
   "main": "lib/index.js",
