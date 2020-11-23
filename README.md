@@ -1,11 +1,16 @@
 # CloudCore NodeJS SDK
 The Cloudprinter.com NodeJS SDK is a package with useful features that enable developers to easily integrate their platform with Cloudprinter.com and make requests and posts to our CloudCore API. This NodeJS SDK makes it easy to set up the integration to request instant pricing, post print orders and more. 
 
+The CloudCore API is designed easy integration with any application or service.
+
 We at Cloudprinter.com have connected 150+ printers to print & ship print products in almost any country in the world. Whether this is around the corner or at the other side of the globe, we've got you covered: we can deliver 500+ different products in more than 100 countries currently.
 
 Our platform makes use of smart routing algoritms to route any print job to the most local and qualified printer. Based on location, performance, price and production options, your print job is routed by these algorithms to the nearest printing facility near your delivery address to help you save on transit times and costs.
 
 Visit our [website](https://www.cloudprinter.com) for more information on all the products and services that we offer.
+
+## Full documentation
+Follow the [link](https://github.com/cloudprintercom/cloudcore-nodejs-sdk/wiki/NodeJS-SDK-CloudCore-documentation) to read the full documentation.
 
 ## Installation 
 The CloudCore SDK can be installed with NPM. Run this command:
@@ -109,3 +114,6 @@ cloudCoreClient.order.create(data)
         console.log(error);
     });
 ```
+
+## Read more information.
+Follow the [link](https://github.com/cloudprintercom/cloudcore-nodejs-sdk/wiki/NodeJS-SDK-CloudCore-documentation) to read the full documentation.
