@@ -1,11 +1,11 @@
 {
   "name": "@cloudprinter/cloudcore",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The library that help developers easily integrate with CloudPrinter CloudCore API.",
   "homepage": "https://cloudprinter.com",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha --recursive",
+    "test": "mocha --recursive --timeout 20000",
     "build": "babel --presets es2015 --plugins transform-class-properties -d lib/ src",
     "clean": "rm -rf lib/ coverage/"
   },

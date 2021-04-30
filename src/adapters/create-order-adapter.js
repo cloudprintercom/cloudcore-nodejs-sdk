@@ -19,22 +19,24 @@ export class CreateOrderAdapter {
     setMD5ForFiles(jsonOrderData) {
         const promises = [];
         jsonOrderData.items.forEach((item) => {
-            item.files.forEach(async (file) => {
-                if (this.isUrl(file.url) && !file.md5sum) {
-                    const promise = axios.request({
-                        responseType: 'arraybuffer',
-                        url: file.url,
-                        method: 'get',
-                        headers: {
-                            'Content-Type': 'application/pdf',
-                        },
-                    });
-                    promises.push(promise);
-                    promise.then((response) => {
-                        file.md5sum = crypto.createHash('md5').update(new Buffer.from(response.data)).digest('hex');
-                    });
-                }
-            });
+            if (item.type !== 'stock') {
+                item.files.forEach(async (file) => {
+                    if (this.isUrl(file.url) && !file.md5sum) {
+                        const promise = axios.request({
+                            responseType: 'arraybuffer',
+                            url: file.url,
+                            method: 'get',
+                            headers: {
+                                'Content-Type': 'application/pdf',
+                            },
+                        });
+                        promises.push(promise);
+                        promise.then((response) => {
+                            file.md5sum = crypto.createHash('md5').update(new Buffer.from(response.data)).digest('hex');
+                        });
+                    }
+                });
+            }
         });
 
         return Promise.all(promises).then(() => jsonOrderData);

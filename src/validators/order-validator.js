@@ -33,11 +33,14 @@ export class OrderValidator extends Validator {
                     reference: Joi.string().required(),
                     product: Joi.string().required(),
                     count: Joi.number().min(1).required(),
-                    files: Joi.array().items(Joi.object({
-                        type: Joi.string().required(),
-                        url: Joi.string().uri().required(),
-                        md5sum: Joi.string().required()
-                    })).min(1).required(),
+                    files: Joi.when('type', {
+                        is: Joi.invalid('stock'),
+                        then: Joi.array().items(Joi.object({
+                            type: Joi.string().required(),
+                            url: Joi.string().uri().required(),
+                            md5sum: Joi.string().required()
+                        })).required()
+                    }),
                     options: Joi.array().items(Joi.object({
                         type: Joi.string().required(),
                         count: Joi.required()

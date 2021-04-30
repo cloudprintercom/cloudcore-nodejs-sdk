@@ -251,5 +251,36 @@ describe('Order action', function() {
                 assert.equal(e.error.info, '"reference" is required');
             }
         });
+
+        it('The order with stock item created', async function () {
+            const data = {
+                "reference": "order-" + Date.now(),
+                "email": "test@mail.com",
+                "addresses": [
+                    {
+                        "type": "delivery",
+                        "firstname": "John",
+                        "lastname": "Doe",
+                        "street1": "Street1",
+                        "zip": "1071 JA",
+                        "city": "Amsterdam",
+                        "country": "NL",
+                        "email": "test@mail.com",
+                        "phone": "+31-655-538-848"
+                    }
+                ],
+                "items": [
+                    {
+                        "reference": "item-1",
+                        "product_reference": "brochure_pb_a5_p_fc",
+                        "count": 1,
+                        "shipping_level": "cp_fast"
+                    }
+                ]
+            };
+
+            const orderResponse = await client.order.create(data)
+            assert.isNotEmpty(orderResponse);
+        });
     });
 });
